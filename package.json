@@ -11,11 +11,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/CarlosLecval/bunyan-chat"
   },
   "keywords": [
     "logging",
     "discord",
+    "slack",
+    "chat",
     "bunyan",
     "log",
     "logger",
@@ -23,7 +25,7 @@
     "stream"
   ],
   "bugs": {
-    "url": ""
+    "url": "https://github.com/CarlosLecval/bunyan-chat/issues"
   },
   "engines": {
     "node": ">=14"
