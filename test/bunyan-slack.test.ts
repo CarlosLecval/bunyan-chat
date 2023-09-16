@@ -1,6 +1,6 @@
 import Bunyan from 'bunyan';
 import got from 'got';
-import BunyanChat from 'bunyan-chat';
+import { BunyanChat } from 'bunyan-chat';
 
 describe('Bunyan-chat Slack integration', () => {
   describe('constructor', function() {

@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "bunyan-chat",
   "module": "dist/bunyan-chat.esm.js",
   "main": "dist/index.js",
