@@ -20,7 +20,7 @@ npm install bunyan-chat
 
 ```typescript
 import Bunyan from 'bunyan';
-import BunyanChat from 'bunyan-chat';
+import { BunyanChat } from 'bunyan-chat';
 
 const log = bunyan.createLogger({
   name: 'myApp',
@@ -53,7 +53,7 @@ All fields are optional except `webhookUrl` and `type`
 
 ```typescript
 import Bunyan from 'bunyan';
-import BunyanChat from 'bunyan-chat';
+import { BunyanChat } from 'bunyan-chat';
 
 const log = bunyan.createLogger({
   name: 'myApp',
@@ -118,7 +118,7 @@ Using slack message attachments
 
 ```typescript
 import Bunyan from 'bunyan';
-import BunyanChat from 'bunyan-chat';
+import { BunyanChat } from 'bunyan-chat';
 
 const log = bunyan.createLogger({
   name: 'myapp',
