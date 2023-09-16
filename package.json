@@ -1,10 +1,11 @@
 {
   "version": "1.0.0",
-  "name": "bunyan-discord",
-  "module": "dist/bunyan-discord.esm.js",
+  "name": "bunyan-chat",
+  "module": "dist/bunyan-chat.esm.js",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "MIT",
+  "author": "Carloslecval",
   "files": [
     "dist",
     "src"
