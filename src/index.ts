@@ -48,7 +48,7 @@ type bunyanSlackOptions<T extends { msg: string; level: ERecordLevel }> = Omit<
   onError?: BunyanChat<T>['onError'];
 };
 
-export default class BunyanChat<T extends { msg: string; level: ERecordLevel }> {
+export class BunyanChat<T extends { msg: string; level: ERecordLevel }> {
   type: 'discord' | 'slack';
   webhookUrl: string;
   username?: string;
