@@ -136,7 +136,7 @@ const log = bunyan.createLogger({
             fallback: 'Required plain-text summary of the attachment.',
             color: '#36a64f',
             pretext: 'Optional text that appears above the attachment block',
-            author_name: 'Bunyan chat'
+            author_name: 'Bunyan chat',
             author_link: 'your_author_link',
             author_icon: 'your_author_icon',
             title: 'Slack API Documentation',
