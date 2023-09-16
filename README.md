@@ -200,4 +200,4 @@ const log = Bunyan.createLogger({
 
 ---
 
-This library was adapted from [bunyan-slack](https://github.com/qualitybath/bunyan-slack)
+This library was based on [bunyan-slack](https://github.com/qualitybath/bunyan-slack)
