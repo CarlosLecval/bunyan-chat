@@ -1,10 +1,8 @@
-# bunyan-slack
+# bunyan-chat
 
-[![bunyan-slack](http://img.shields.io/npm/v/bunyan-slack.svg?style=flat-square)](https://www.npmjs.com/package/bunyan-slack)
-[![bunyan-slack](http://img.shields.io/npm/dm/bunyan-slack.svg?style=flat-square)](https://www.npmjs.com/package/bunyan-slack)
-[![bunyan-slack](http://img.shields.io/npm/l/bunyan-slack.svg?style=flat-square)](https://www.npmjs.com/package/bunyan-slack)
+**Bunyan stream for chat integrations**
 
-**Bunyan stream for Slack chat integration**
+Currently just Slack and Discord
 
 First install bunyan...
 
@@ -12,27 +10,30 @@ First install bunyan...
 npm install bunyan
 ```
 
-Then install bunyan-slack
+Then install bunyan-chat
 
 ```
-npm install bunyan-slack
+npm install bunyan-chat
 ```
 
-## Basic Setup
+## Slack Setup
 
-```javascript
-const bunyan = require('bunyan');
-const BunyanSlack = require('bunyan-slack');
+```typescript
+import Bunyan from 'bunyan';
+import BunyanChat from 'bunyan-chat';
 
 const log = bunyan.createLogger({
   name: 'myApp',
   streams: [
     {
       type: 'raw',
-      stream: new BunyanSlack({
+      stream: new BunyanChat({
+        type: 'slack',
         webhookUrl: 'your_webhook_url',
         channel: '#your_channel',
         username: 'your_username',
+        iconEmoji: ':smile:',
+        iconUrl: 'your_icon_url',
       }),
     },
   ],
@@ -42,12 +43,48 @@ const log = bunyan.createLogger({
 log.error('hello bunyan slack');
 ```
 
-You can also pass an optional error handler.
-
 > Specify a Slack channel by name with `"channel": "#other-channel"`, or send a Slackbot message to a specific user with `"channel": "@username"`.
 
-```javascript
-const stream = new BunyanSlack({
+Custom formatter supports array of message attachments
+
+All fields are optional except `webhookUrl` and `type`
+
+## Discord Setup
+
+```typescript
+import Bunyan from 'bunyan';
+import BunyanChat from 'bunyan-chat';
+
+const log = bunyan.createLogger({
+  name: 'myApp',
+  streams: [
+    {
+      type: 'raw',
+      stream: new BunyanChat({
+        type: 'discord',
+        webhookUrl: 'your_webhook_url',
+        username: 'your_username',
+        avatarUrl: 'your_avatar_url',
+      }),
+    },
+  ],
+  level: 'error',
+});
+
+log.error('hello bunyan discord');
+```
+
+Custom formatter supports array of embeds
+
+All fields are optional except `webhookUrl` and `type`
+
+## Optional error handlers
+
+You can also pass an optional error handler.
+
+```typescript
+const stream = new BunyanChat({
+  type: 'slack',
   webhookUrl: 'your_webhook_url',
   channel: '#your_channel',
   username: 'your_username',
@@ -61,10 +98,11 @@ const stream = new BunyanSlack({
 
 By default the logs are formatted like so: `[LOG_LEVEL] message`, unless you specify a `customFormatter` function.
 
-```javascript
+```typescript
 const log = bunyan.createLogger({
   name: 'myApp',
-  stream: new BunyanSlack({
+  stream: new BunyanChat({
+    type: 'slack',
     webhookUrl: 'your_webhook_url',
     channel: '#your_channel',
     username: 'your_username',
@@ -76,19 +114,16 @@ const log = bunyan.createLogger({
 });
 ```
 
-## Custom Formatter Options
+Using slack message attachments
 
-> Check the [slack docs](https://api.slack.com/incoming-webhooks) for custom formatter options.
-
-### Putting it all together
-
-```javascript
-const bunyan = require('bunyan');
-const BunyanSlack = require('bunyan-slack');
+```typescript
+import Bunyan from 'bunyan';
+import BunyanChat from 'bunyan-chat';
 
 const log = bunyan.createLogger({
   name: 'myapp',
-  stream: new BunyanSlack({
+  stream: new BunyanChat({
+    type: 'slack',
     webhookUrl: 'your_webhook_url',
     iconUrl: 'your_icon_url',
     channel: '#your_channel',
@@ -101,9 +136,9 @@ const log = bunyan.createLogger({
             fallback: 'Required plain-text summary of the attachment.',
             color: '#36a64f',
             pretext: 'Optional text that appears above the attachment block',
-            author_name: 'Seth Pollack',
-            author_link: 'http://sethpollack.net',
-            author_icon: 'http://www.gravatar.com/avatar/3f5ce68fb8b38a5e08e7abe9ac0a34f1?s=200',
+            author_name: 'Bunyan chat'
+            author_link: 'your_author_link',
+            author_icon: 'your_author_icon',
             title: 'Slack API Documentation',
             title_link: 'https://api.slack.com/',
             text: 'Optional text that appears within the attachment',
@@ -123,12 +158,51 @@ const log = bunyan.createLogger({
 });
 ```
 
+Using discord embeds
+
+```typescript
+const log = Bunyan.createLogger({
+  name: 'myapp',
+  streams: [
+    {
+      type: 'raw',
+      stream: new BunyanChat({
+        type: 'discord' as const,
+        webhookUrl: 'mywebhookurl',
+        customFormatter: (record: any, levelName: string) => {
+          return {
+            embeds: [
+              {
+                color: 7019426,
+                title: 'Discord API Documentation',
+                url: 'https://discord.com/developers/docs/intro',
+                description: 'Optional text that appears within the attachment',
+                author: {
+                  name: 'Carloslecval',
+                  url: 'https://avatars.githubusercontent.com/u/61945879?v=4',
+                },
+                fields: [
+                  {
+                    name: `We have a new ${levelName} log`,
+                    value: `${record.msg}`,
+                  },
+                ],
+              },
+            ],
+          };
+        },
+      }),
+    },
+  ],
+  level: 'info',
+});
+```
+
 ---
 
-This library was adapted from [winston-bishop-slack](https://github.com/lapwinglabs/winston-bishop-slack)
+This library was adapted from [bunyan-slack](https://github.com/qualitybath/bunyan-slack)
 
-The MIT License  
-Copyright (c) 2015 [QualityBath.com](https://www.qualitybath.com/)
+The MIT License
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

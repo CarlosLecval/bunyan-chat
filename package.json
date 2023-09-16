@@ -46,6 +46,7 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
+    "@slack/types": "^2.8.0",
     "@types/bunyan": "^1.8.8",
     "bunyan": "^1.8.15",
     "husky": "^8.0.1",
