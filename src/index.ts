@@ -1,6 +1,7 @@
 import util from 'util';
 import got from 'got';
-import { MessageAttachment } from '@slack/types';
+import type { MessageAttachment } from '@slack/types';
+import { Embed } from './types/Embed';
 
 enum ERecordLevel {
   trace = 10,

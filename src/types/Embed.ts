@@ -1,4 +1,4 @@
-interface Embed {
+export interface Embed {
   title?: string;
   type?: 'rich';
   description?: string;
